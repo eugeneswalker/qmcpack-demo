@@ -1,4 +1,5 @@
 .spack-env
+i.s
 spack.lock
 qmcpack.dag
 e4s.pub
