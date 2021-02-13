@@ -115,6 +115,7 @@ spack:
       - 1.2.11
   specs:
   - qmcpack
+
   compilers:
   - compiler:
       spec: gcc@9.3.0
