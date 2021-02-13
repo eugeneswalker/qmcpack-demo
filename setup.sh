@@ -4,12 +4,14 @@
 SPACK_REF=851490bd5424f327edbde44d6d78a9cfe867df9a # 2-13-2021
 
 if [ ! -d spack ] ; then
-  echo Cloning Spack@${SPACK_REF}
+  echo Cloning Spack
   git clone https://github.com/spack/spack
-  (cd spack && git checkout ${SPACK_REF})
 else
   echo Spack cloned
 fi
+
+echo Checking out Spack commit ${SPACK_REF}
+(cd spack && git checkout ${SPACK_REF})
 
 . spack/share/spack/setup-env.sh
 
