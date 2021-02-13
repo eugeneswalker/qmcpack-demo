@@ -2,6 +2,7 @@
 
 #SPACK_REF=9d8b8553f1ad95f26be2a03fbf94c1fdec257792
 SPACK_REF=851490bd5424f327edbde44d6d78a9cfe867df9a # 2-13-2021
+QMCPACK_REF=develop
 
 if [ ! -d spack ] ; then
   echo Cloning Spack
@@ -25,5 +26,24 @@ spack -e . concretize -f | tee qmcpack.dag
 
 time spack -e . install \
 	--cache-only \
-	--include-build-deps \
-	--only dependencies
+	--include-build-deps
+
+if [ ! -d qmcpack ] ; then
+  echo Cloning QMCPACK
+  git clone https://github.com/QMCPACK/qmcpack.git
+else
+  echo QMCPACK is cloned
+fi
+
+(cd qmcpack && git checkout ${QMCPACK_REF})
+
+mkdir -p qmcpack/build-test
+cp ctest.sh cmake.sh qmcpack/build-test
+cp cmake.sh qmcpack/build-test/
+cd qmcpack/build-test
+spack load cmake
+spack load --only dependencies qmcpack
+./cmake.sh
+make -j16
+./ctest.sh
+
