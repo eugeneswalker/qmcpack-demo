@@ -1,11 +1,11 @@
 #!/bin/bash -ex
 
-export OMPI_CC=gcc
-export OMPI_CXX=g++
+export MPICH_CC=clang
+export MPICH_CXX=clang++
 
 ctest \
-	-DCMAKE_C_COMPILER=mpicc \
-	-DCMAKE_CXX_COMPILER=mpicxx \
+	-DCMAKE_C_CMPICHLER=mpicc \
+	-DCMAKE_CXX_CMPICHLER=mpicxx \
 	-DQMC_MPI=1 \
 	-DQMC_MIXED_PRECISION=0 \
 	-DQMC_COMPLEX=0 \
@@ -13,4 +13,3 @@ ctest \
 	-DENABLE_TIMERS=1 \
 	-DBUILD_AFQMC=0 ../CMake/ctest_script.cmake,release \
 	--tests-regex deterministic -LE unstable -E long-
-

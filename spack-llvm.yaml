@@ -114,7 +114,7 @@ spack:
       version:
       - 1.2.11
   specs:
-  - qmcpack
+  - llvm +clang +compiler-rt +libcxx +lld +lldb +llvm_dylib
 
   compilers:
   - compiler:

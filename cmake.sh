@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
-export OMPI_CC=gcc
-export OMPI_CXX=g++
+export MPICH_CC=clang
+export MPICH_CXX=clang++
 
 cmake \
 	-DCMAKE_C_COMPILER=mpicc \

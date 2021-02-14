@@ -22,6 +22,17 @@ spack mirror add E4S https://cache.e4s.io/qmcpack
 [ ! -f e4s.pub ] && wget https://oaciss.uoregon.edu/e4s/e4s.pub
 spack gpg trust e4s.pub
 
+cp spack-llvm.yaml spack.yaml
+spack -e . concretize -f | tee llvm.dag
+time spack -e . install --cache-only
+
+GCC_BIN=$(dirname $(which gcc)) ; export GCC_BIN
+LLVM_ROOT=$(spack location -i llvm) ; export LLVM_ROOT
+envsubst < compilers.yaml.tpl > ~/.spack/linux/compilers.yaml
+
+spack compiler find
+
+cp spack-qmcpack.yaml spack.yaml
 spack -e . concretize -f | tee qmcpack.dag
 
 time spack -e . install \
@@ -41,6 +52,7 @@ mkdir -p qmcpack/build-test
 cp ctest.sh cmake.sh qmcpack/build-test
 cp cmake.sh qmcpack/build-test/
 cd qmcpack/build-test
+spack load llvm
 spack load cmake
 spack load --only dependencies qmcpack
 ./cmake.sh
