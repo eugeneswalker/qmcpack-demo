@@ -28,6 +28,7 @@ time spack -e . install --cache-only
 
 GCC_BIN=$(dirname $(which gcc)) ; export GCC_BIN
 LLVM_ROOT=$(spack location -i llvm) ; export LLVM_ROOT
+mkdir -p ~/.spack/linux
 envsubst < compilers.yaml.tpl > ~/.spack/linux/compilers.yaml
 
 spack compiler find
