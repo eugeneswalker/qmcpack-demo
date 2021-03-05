@@ -119,4 +119,4 @@ spack:
       version:
         - 1.2.11
   specs:
-  - qmcpack@0.3.10
+  - qmcpack@3.10.0
